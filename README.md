@@ -1,7 +1,8 @@
 <div align="center"><strong>This document serves as an assessment for a job application as Senior Frontend Developer at SMARTM2M Indonesia (part of SMARTM2M CO., LTD – South Korea). <br/> Developed by Bhaktiaji Ilham.</strong></div>
-<div align="center">Built with the Next.js TypeScript Tailwind</div>
-<br />
 
+<div align="center">Built with the Next.js TypeScript Tailwind</div>
+
+<div align="center"><a href="https://smartm-2-m-assesment-bhaktiaji-ilham-mabruri.vercel.app/">Demo</a></div>
 
 ## Overview
 
