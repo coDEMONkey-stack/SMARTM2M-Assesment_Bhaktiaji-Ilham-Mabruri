@@ -28,7 +28,7 @@ import { profileSchema, type ProfileFormValues } from '@/lib/form-schema';
 import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertTriangleIcon, Trash, Trash2Icon } from 'lucide-react';
-import { useParams, useRouter } from 'next/navigation';
+import {  useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { SubmitHandler, useFieldArray, useForm } from 'react-hook-form';
 
@@ -40,20 +40,18 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({
   initialData,
   categories
 }) => {
-  const params = useParams();
   const router = useRouter();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const title = initialData ? 'Edit product' : 'Edit Your Profile';
   const description = initialData
     ? 'Edit a product.'
     : 'Edit some basic information about you.';
-  const toastMessage = initialData ? 'Product updated.' : 'Product created.';
-  const action = initialData ? 'Save changes' : 'Create';
-  const [previousStep, setPreviousStep] = useState(0);
+  // const [ setPreviousStep] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const [data, setData] = useState({});
-  const delta = currentStep - previousStep;
+  // const delta = currentStep - previousStep;
 
   const defaultValues = {
     jobs: [
@@ -84,6 +82,7 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({
     name: 'jobs'
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const onSubmit = async (data: ProfileFormValues) => {
     try {
       setLoading(true);
@@ -101,21 +100,9 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({
     }
   };
 
-  const onDelete = async () => {
-    try {
-      setLoading(true);
-      //   await axios.delete(`/api/${params.storeId}/products/${params.productId}`);
-      router.refresh();
-      router.push(`/${params.storeId}/products`);
-    } catch (error: any) {
-    } finally {
-      setLoading(false);
-      setOpen(false);
-    }
-  };
 
   const processForm: SubmitHandler<ProfileFormValues> = (data) => {
-    console.log('data ==>', data);
+    console.log('data ==>', data); // eslint-disable-line no-console
     setData(data);
     // api call and reset
     // form.reset();
@@ -150,25 +137,30 @@ const ProfileCreateForm: React.FC<ProfileFormType> = ({
 
   const next = async () => {
     const fields = steps[currentStep].fields;
-
     const output = await form.trigger(fields as FieldName[], {
       shouldFocus: true
     });
-
+  
     if (!output) return;
-
+  
     if (currentStep < steps.length - 1) {
       if (currentStep === steps.length - 2) {
         await form.handleSubmit(processForm)();
       }
-      setPreviousStep(currentStep);
       setCurrentStep((step) => step + 1);
     }
   };
+  
+    // const prev = () => {
+    //   if (currentStep > 0) {
+    //     setCurrentStep((step) => step - 1);
+    //   }
+    // };
+  
 
   const prev = () => {
     if (currentStep > 0) {
-      setPreviousStep(currentStep);
+      // setPreviousStep(currentStep);
       setCurrentStep((step) => step - 1);
     }
   };

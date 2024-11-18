@@ -37,12 +37,13 @@ interface FilterBoxProps {
     value: string | ((old: string) => string | null) | null,
     options?: Options<any> | undefined
   ) => Promise<URLSearchParams>;
-  setPage: <Shallow>(
+  setPage?: <Shallow>(
     value: number | ((old: number) => number | null) | null,
     options?: Options<Shallow> | undefined
   ) => Promise<URLSearchParams>;
   filterValue: string;
 }
+
 
 export function DataTableFilterBox({
   filterKey,
@@ -66,8 +67,10 @@ export function DataTableFilterBox({
       newSet.add(value);
     }
     setFilterValue(Array.from(newSet).join('.') || null);
-    setPage(1);
+    
+    setPage?.(1);
   };
+  
 
   const resetFilter = () => setFilterValue(null);
 
